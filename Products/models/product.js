@@ -21,7 +21,9 @@ const Product = Schema({
     Availability:{
         type:Boolean
     },
-    
+    BaseQuantity:{
+        type:Number
+    }
 })
 
 module.exports = mongoose.model("Product", Product)

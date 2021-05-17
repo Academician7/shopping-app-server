@@ -32,7 +32,8 @@ router.route("/register").post((req,res)=>{
         Image:req.body.Image,
         Price:req.body.Price,
         QuantityType: req.body.QuantityType,
-        Availability: req.body.Availability
+        Availability: req.body.Availability,
+        BaseQuantity:req.body.BaseQuantity
     })
     product
      .save()
@@ -57,6 +58,7 @@ router.route("/update/:_id").patch((req,res)=>{
                 Price:req.body.Price,
                 QuantityType: req.body.QuantityType,
                 Availability: req.body.Availability,
+                BaseQuantity:req.body.BaseQuantity
         }},
         (err,result) => {
             if(err) return res.status(500).json({msg:err})
