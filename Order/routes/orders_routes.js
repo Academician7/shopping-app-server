@@ -44,8 +44,8 @@ router.route("/register").post((req,res)=>{
     order
      .save()
      .then(()=>{
-      //  console.log(` ${req.body.username} order registered`)
-        res.status(200).json({msg:"success"})
+        console.log(order._id)
+        res.status(200).json({orderID:order._id})
        })
      .catch((err)=>{
         res.status(403).json({msg:err})
