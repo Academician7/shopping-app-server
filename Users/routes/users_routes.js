@@ -14,7 +14,6 @@ router.route("/").get((req,res)=>{
    })
 })
 
- 
 
 
 router.route("/id/:_id").get((req,res)=>{
@@ -48,26 +47,54 @@ router.route("/login").post((req,res)=>{
 })
 
 
-
-
 router.route("/register").post((req,res)=>{
-    const user = new Users({
-        UserName: req.body.UserName,
-        Email:req.body.Email,
-        Password:req.body.Password,
-        PhoneNumber:req.body.PhoneNumber,
-        Address: req.body.Address,
-    })
-    user
-     .save()
-     .then(()=>{
-      //  console.log(` ${req.body.username} user registered`)
-        res.status(200).json({msg:"success"})
-       })
-     .catch((err)=>{
-        res.status(403).json({msg:err})
-       })
+    Users.findOne({Email:req.body.Email},(err,result)=>{
+        if(err) return res.status(500).json({msg:err})
+        if(result===null)
+        {
+            const user = new Users({
+                UserName: req.body.UserName,
+                Email:req.body.Email,
+                Password:req.body.Password,
+                PhoneNumber:req.body.PhoneNumber,
+                Address: req.body.Address,
+            })
+            user
+             .save()
+             .then(()=>{
+              //  console.log(` ${req.body.username} user registered`)
+                res.status(200).json({msg:"success"})
+               })
+             .catch((err)=>{
+                res.status(403).json({msg:err})
+               })
+        }  
+        else
+        {
+            res.json("email already exist")
+        }
+   })
 })
+
+
+// router.route("/register").post((req,res)=>{
+//     const user = new Users({
+//         UserName: req.body.UserName,
+//         Email:req.body.Email,
+//         Password:req.body.Password,
+//         PhoneNumber:req.body.PhoneNumber,
+//         Address: req.body.Address,
+//     })
+//     user
+//      .save()
+//      .then(()=>{
+//       //  console.log(` ${req.body.username} user registered`)
+//         res.status(200).json({msg:"success"})
+//        })
+//      .catch((err)=>{
+//         res.status(403).json({msg:err})
+//        })
+// })
 
 
 
