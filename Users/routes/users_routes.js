@@ -1,4 +1,5 @@
 const express = require("express")
+const { findOne } = require("../models/users")
 const Users = require("../models/users")
 
 const router = express.Router()
@@ -14,12 +15,36 @@ router.route("/").get((req,res)=>{
 })
 
  
-// router.route("/:username").get(middleware.checkToken,(req,res)=>{
+
+
 router.route("/id/:_id").get((req,res)=>{
        Users.findById({_id:req.params._id},(err,result)=>{
            if(err) return res.status(500).json({msg:err})
           return res.json(result)
       })
+})
+
+
+
+router.route("/login").post((req,res)=>{
+    Users.findOne({Email:req.body.Email},(err,result)=>{
+        if(err) return res.status(500).json({msg:err})
+        if(result===null)
+        {
+            return res.status(403).json("Username incorect")
+        }  
+        if(result.Password===req.body.Password)
+        {
+            res.json({   
+                msg:"success",
+                result:result._id
+            })
+        }
+        else
+        {
+            res.status(403).json("password is incorrect")
+        }
+   })
 })
 
 
