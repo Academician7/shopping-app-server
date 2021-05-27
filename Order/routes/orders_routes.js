@@ -29,6 +29,13 @@ router.route("/customerid/:CustomerID").get((req,res)=>{
    })
 })
 
+router.route("/date/:Date").get((req,res)=>{
+    Orders.find({Date:req.params.Date},(err,result)=>{
+        if(err) return res.status(500).json({msg:err})
+       return res.json(result)
+   })
+})
+
 
 router.route("/register").post((req,res)=>{
     const order = new Orders({
@@ -39,7 +46,8 @@ router.route("/register").post((req,res)=>{
         Email:req.body.Email,
         TotalPrice:req.body.TotalPrice,
         OrderConfirmed:req.body.OrderConfirmed,
-        Delivered:req.body.Delivered
+        Delivered:req.body.Delivered,
+        Date:req.body.Date
     })
     order
      .save()
@@ -65,7 +73,8 @@ router.route("/update/:_id").patch((req,res)=>{
             Email:req.body.Email,
             TotalPrice:req.body.TotalPrice,
             OrderConfirmed:req.body.OrderConfirmed,
-            Delivered:req.body.Delivered
+            Delivered:req.body.Delivered,
+            Date:req.body.Date
         }},
         (err,result) => {
             if(err) return res.status(500).json({msg:err})

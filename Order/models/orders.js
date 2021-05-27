@@ -26,7 +26,10 @@ const Orders = Schema({
     },
     Delivered:{
         type:String
-    }
+    },
+    Date:{
+        type:String
+    },
     
 })
 
