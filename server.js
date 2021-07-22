@@ -76,6 +76,6 @@ app.route("/").get((req,res)=>{
 })
 
 
-app.listen(PORT,()=>{
-    console.log(`server is running on port ${PORT} `)
+app.listen(PORT,"0.0.0.0",()=>{
+    console.log("Server Started",PORT)
 })
